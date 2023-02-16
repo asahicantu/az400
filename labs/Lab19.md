@@ -85,6 +85,7 @@ From the Bash prompt, in the Cloud Shell pane, run the following command to crea
         az appservice plan create --resource-group $rg --name $sp --sku B3 
         az webapp create --resource-group $rg --plan $sp --name $webappName
     ```
+    
     > Note: Record the name of the web app. You will need it later in this lab.
 
 Now is the time to create an Application Insights instance.
