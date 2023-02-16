@@ -10,15 +10,17 @@ In this lab, you'll learn about how you can add Application Insights to an exist
 
 After you complete this lab, you will be able to:
 
--Deploy Azure App Service web apps
--Generate and monitor Azure web app application traffic by using Application Insights
--Investigate Azure web app performance by using Application Insights
--Track Azure web app usage by using Application Insights
--Create Azure web app alerts by using Application Insights
--Exercise 0: Configure the lab prerequisites
+- Deploy Azure App Service web apps
+- Generate and monitor Azure web app application traffic by using Application Insights
+- Investigate Azure web app performance by using Application Insights
+- Track Azure web app usage by using Application Insights
+- Create Azure web app alerts by using Application Insights
+- Exercise 0: Configure the lab prerequisites
+
 In this exercise, you will set up the prerequisites for the lab, which consist of the preconfigured Parts Unlimited team project based on an Azure DevOps Demo Generator template and -Azure resources, including an Azure web app and an Azure SQL database.
 
 ## Task 0: Associate your subscription with your project.
+
 Navigate to the following URL https://dev.azure.com and login as asahi_cantuRCO1X@gdcs0.com and the password oXg3ekBnrnTTdfeO
 
 Click Start free.
