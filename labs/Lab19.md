@@ -79,14 +79,15 @@ If prompted to select either Bash or PowerShell, select Bash.
 
 From the Bash prompt, in the Cloud Shell pane, run the following command to create a resource group (replace the <region> placeholder with the name of the Azure region closest to you such as 'eastus').
 
-    ```bash
-        rg='az400m17l01a-RG'
-        loc='norwayeast' 
-        sp='az400l17-sp'
-        webappName=partsunlimited$RANDOM$RANDOM #create a webapp with unique plan name
-        az group create --name $rg --location $loc 
-        az appservice plan create --resource-group $rg --name $sp --sku B3 
-        az webapp create --resource-group $rg --plan $sp --name $webappName
+    ```
+    rg='az400m17l01a-RG'
+    loc='norwayeast' 
+    sp='az400l17-sp'
+    webappName=partsunlimited$RANDOM$RANDOM #create a webapp with unique plan name
+    az group create --name $rg --location $loc 
+    az appservice plan create --resource-group $rg --name $sp --sku B3 
+    az webapp create --resource-group $rg --plan $sp --name $webappName
+    
     ```
 
 > Note: Record the name of the web app. You will need it later in this lab.
@@ -116,7 +117,7 @@ Next, create an Azure SQL Server.
 
 The web app needs to be able to access the SQL server, so we need to allow access to Azure resources in the SQL Server firewall rules.
 
-    ```bash
+    ```
         STARTIP="0.0.0.0"
         ENDIP="0.0.0.0"
         az sql server firewall-rule create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME \
