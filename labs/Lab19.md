@@ -76,65 +76,72 @@ If prompted to select either Bash or PowerShell, select Bash.
 
 From the Bash prompt, in the Cloud Shell pane, run the following command to create a resource group (replace the <region> placeholder with the name of the Azure region closest to you such as 'eastus').
 
-RESOURCEGROUPNAME='az400m17l01a-RG'
-LOCATION='<region>'
-az group create --name $RESOURCEGROUPNAME --location $LOCATION
-To create a Windows App service plan by running the following command:
-
-SERVICEPLANNAME='az400l17-sp'
-az appservice plan create --resource-group $RESOURCEGROUPNAME \
-    --name $SERVICEPLANNAME --sku B3 
-Create a web app with a unique name.
-
-WEBAPPNAME=partsunlimited$RANDOM$RANDOM
-az webapp create --resource-group $RESOURCEGROUPNAME --plan $SERVICEPLANNAME --name $WEBAPPNAME 
-> Note: Record the name of the web app. You will need it later in this lab.
+    ```bash
+        rg='az400m17l01a-RG'
+        loc='norwayeast' 
+        sp='az400l17-sp'
+        webappName=partsunlimited$RANDOM$RANDOM #create a webapp with unique plan name
+        az group create --name $rg --location $loc 
+        az appservice plan create --resource-group $rg --name $sp --sku B3 
+        az webapp create --resource-group $rg --plan $sp --name $webappName
+    ```
+    > Note: Record the name of the web app. You will need it later in this lab.
 
 Now is the time to create an Application Insights instance.
 
-az monitor app-insights component create --app $WEBAPPNAME \
-    --location $LOCATION \
-    --kind web --application-type web \
-    --resource-group $RESOURCEGROUPNAME
-> Note: If you got prompted with 'The command requires the extension application-insights. Do you want to install it now?', type Y and press enter.
+    ```bash
+        az monitor app-insights component create --app $webappName --location $loc --kind web --application-type web --resource-group $rg
+    ```
+    > Note: If you got prompted with 'The command requires the extension application-insights. Do you want to install it now?', type Y and press enter.
 
 Let us connect the Application Insights to our web application.
 
-az monitor app-insights component connect-webapp --app $WEBAPPNAME \
-    --resource-group $RESOURCEGROUPNAME --web-app $WEBAPPNAME
+    ```bash
+        az monitor app-insights component connect-webapp --app $WEBAPPNAME \
+        --resource-group $RESOURCEGROUPNAME --web-app $WEBAPPNAME
+    ```
 Next, create an Azure SQL Server.
-
+```bash
 USERNAME="Student"
 SQLSERVERPASSWORD="Pa55w.rd1234"
 SERVERNAME="partsunlimitedserver$RANDOM"
-
 az sql server create --name $SERVERNAME --resource-group $RESOURCEGROUPNAME \
 --location $LOCATION --admin-user $USERNAME --admin-password $SQLSERVERPASSWORD
+```
+
 The web app needs to be able to access the SQL server, so we need to allow access to Azure resources in the SQL Server firewall rules.
 
-STARTIP="0.0.0.0"
-ENDIP="0.0.0.0"
-az sql server firewall-rule create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME \
---name AllowAzureResources --start-ip-address $STARTIP --end-ip-address $ENDIP
+    ```
+        STARTIP="0.0.0.0"
+        ENDIP="0.0.0.0"
+        az sql server firewall-rule create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME \
+        --name AllowAzureResources --start-ip-address $STARTIP --end-ip-address $ENDIP
+    ```
+
 Now create a database within that server.
 
-az sql db create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME --name PartsUnlimited \
---service-objective S0
+    ```bash
+    az sql db create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME --name PartsUnlimited \
+    --service-objective S0
+    ```
+
 The web app you created needs the database connection string in its configuration, so run the following commands to prepare and add it to the app settings of the web app.
 
-CONNSTRING=$(az sql db show-connection-string --name PartsUnlimited --server $SERVERNAME \
---client ado.net --output tsv)
-CONNSTRING=${CONNSTRING//<username>/$USERNAME}
-CONNSTRING=${CONNSTRING//<password>/$SQLSERVERPASSWORD}
-az webapp config connection-string set --name $WEBAPPNAME --resource-group $RESOURCEGROUPNAME \
--t SQLAzure --settings "DefaultConnectionString=$CONNSTRING" 
-Exercise 1: Monitor an Azure App Service web app by using Azure Application Insights
+    ```bash
+        CONNSTRING=$(az sql db show-connection-string --name PartsUnlimited --server $SERVERNAME \
+        --client ado.net --output tsv)
+        CONNSTRING=${CONNSTRING//<username>/$USERNAME}
+        CONNSTRING=${CONNSTRING//<password>/$SQLSERVERPASSWORD}
+        az webapp config connection-string set --name $WEBAPPNAME --resource-group $RESOURCEGROUPNAME \
+        -t SQLAzure --settings "DefaultConnectionString=$CONNSTRING" 
+    ```
+## Exercise 1: Monitor an Azure App Service web app by using Azure Application Insights
 In this exercise, you will deploy a web app to Azure App Service by using Azure DevOps pipelines, generate traffic targeting the web app, and use Application Insights to review the web traffic, investigate application performance, track application usage, and configure alerting.
 
-## Task 1: Deploy a web app to Azure App Service by using Azure DevOps
+### Task 1: Deploy a web app to Azure App Service by using Azure DevOps
 In this task, you will deploying a web app to Azure by using Azure DevOps pipelines.
 
-> Note: The sample project we are using in this lab includes a continuous integration build, which we will use without modifications. There is also a continuous delivery release pipeline that will require minor changes before it is ready for deployment to the Azure resources you implemented in the previous task.
+    > Note: The sample project we are using in this lab includes a continuous integration build, which we will use without modifications. There is also a continuous delivery release pipeline that will require minor changes before it is ready for deployment to the Azure resources you implemented in the previous task.
 
 Switch to the web browser window displaying the Monitoring Application Performance project in the Azure DevOps portal, in the vertical navigational pane, select the Pipelines, and, in the Pipelines section, select Releases.
 
@@ -156,7 +163,7 @@ In the diagram, click the Pre-deployment condition oval symbol on the left side 
 
 On the Pre-deployment condition pane, in the Select trigger section, select After release.
 
-> Note: This will invoke the release pipeline after the project's build pipeline succeeds.
+    > Note: This will invoke the release pipeline after the project's build pipeline succeeds.
 
 With the Pipeline tab of the All pipelines > PartsUnlimitedE2E pane active, click the Variables tab header.
 
@@ -164,7 +171,7 @@ In the list of variables, set the value of the WebsiteName variable to match the
 
 In the upper right corner of the pane, click Save, and, when prompted, in the Save dialog box, click OK again.
 
-> Note: Now that the release pipeline is in place, we can expect that any commits to the master branch will trigger the build and release pipelines.
+    > Note: Now that the release pipeline is in place, we can expect that any commits to the master branch will trigger the build and release pipelines.
 
 In the web browser window displaying the Azure DevOps portal, in the vertical navigational pane, click Repos.
 
