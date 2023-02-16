@@ -75,7 +75,6 @@ In this exercise, you will step through publishing an Azure DevOps repository as
     | Branch           | main                            |
     | Folder           | /Documents                      |
     | Wiki name        | Tailwind Traders (Documents)    |
-    | Framework .NET   | Framework 4.5.1                 |
 
     > Note: This will automatically display the content of the GitHubAction.md file.
 
