@@ -89,7 +89,7 @@ From the Bash prompt, in the Cloud Shell pane, run the following command to crea
         az webapp create --resource-group $rg --plan $sp --name $webappName
     ```
 
-    > Note: Record the name of the web app. You will need it later in this lab.
+> Note: Record the name of the web app. You will need it later in this lab.
 
 Now is the time to create an Application Insights instance.
 
@@ -106,17 +106,17 @@ Let us connect the Application Insights to our web application.
     ```
 Next, create an Azure SQL Server.
 
-```bash
-USERNAME="Student"
-SQLSERVERPASSWORD="Pa55w.rd1234"
-SERVERNAME="partsunlimitedserver$RANDOM"
-az sql server create --name $SERVERNAME --resource-group $RESOURCEGROUPNAME \
---location $LOCATION --admin-user $USERNAME --admin-password $SQLSERVERPASSWORD
-```
+    ```bash
+    USERNAME="Student"
+    SQLSERVERPASSWORD="Pa55w.rd1234"
+    SERVERNAME="partsunlimitedserver$RANDOM"
+    az sql server create --name $SERVERNAME --resource-group $RESOURCEGROUPNAME \
+    --location $LOCATION --admin-user $USERNAME --admin-password $SQLSERVERPASSWORD
+    ```
 
 The web app needs to be able to access the SQL server, so we need to allow access to Azure resources in the SQL Server firewall rules.
 
-    ```
+    ```bash
         STARTIP="0.0.0.0"
         ENDIP="0.0.0.0"
         az sql server firewall-rule create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME \
