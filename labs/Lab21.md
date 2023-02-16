@@ -11,6 +11,7 @@ After you complete this lab, you will be able to:
 - Create a wiki in an Azure Project.
 - Add and edit markdown.
 - Create a Mermaid diagram.
+-
 
 ## Exercise 0: Configure the lab prerequisites
 
@@ -105,8 +106,9 @@ In this exercise, you will step through publishing an Azure DevOps repository as
 
 7. On the GitHubActions.md pane, directly below the #GitHub Actions header, add the following markdown element referencing one of the images within the Documents folder:
 
-    ![Tailwind Traders Website](Images/Website.png)
-
+    ```md
+        ![Tailwind Traders Website](Images/Website.png)
+    ```
 8. On the GitHubActions.md pane, click Commit and, on the Commit pane, click Commit.
 
 9. On the Preview tab of the GitHubActions.md pane, verify that the image is being displayed.
