@@ -59,6 +59,7 @@ In this exercise, you will set up the prerequisites for the lab, which consist o
 4. If prompted to select either Bash or PowerShell, select Bash.
     > Note: If this is the first time you are starting Cloud Shell and you are presented with the You have no storage mounted message, select the subscription you are using in this lab, and select Create storage.
 5. From the Bash prompt, in the Cloud Shell pane, run the following command to create a resource group (replace the [region] placeholder with the name of the Azure region closest to you such as 'eastus').
+
     ```bash
     rg='az400m17l01a-RG'
     loc='norwayeast' 
@@ -68,22 +69,24 @@ In this exercise, you will set up the prerequisites for the lab, which consist o
     az appservice plan create --resource-group $rg --name $sp --sku B3 
     az webapp create --resource-group $rg --plan $sp --name $webappName
     ```
+
     > Note: Record the name of the web app. You will need it later in this lab.
 
-Now is the time to create an Application Insights instance.
+6. Now is the time to create an Application Insights instance.
 
     ```bash
-        az monitor app-insights component create --app $webappName --location $loc --kind web --application-type web --resource-group $rg
+    az monitor app-insights component create --app $webappName --location $loc --kind web --application-type web --resource-group $rg
     ```
+
     > Note: If you got prompted with 'The command requires the extension application-insights. Do you want to install it now?', type Y and press enter.
 
-Let us connect the Application Insights to our web application.
+7. Let us connect the Application Insights to our web application.
 
     ```bash
-        az monitor app-insights component connect-webapp --app $WEBAPPNAME \
-        --resource-group $RESOURCEGROUPNAME --web-app $WEBAPPNAME
+    az monitor app-insights component connect-webapp --app $WEBAPPNAME --resource-group $RESOURCEGROUPNAME --web-app $WEBAPPNAME
     ```
-Next, create an Azure SQL Server.
+
+8. Next, create an Azure SQL Server.
 
     ```bash
     USERNAME="Student"
@@ -93,32 +96,32 @@ Next, create an Azure SQL Server.
     --location $LOCATION --admin-user $USERNAME --admin-password $SQLSERVERPASSWORD
     ```
 
-The web app needs to be able to access the SQL server, so we need to allow access to Azure resources in the SQL Server firewall rules.
+9. The web app needs to be able to access the SQL server, so we need to allow access to Azure resources in the SQL Server firewall rules.
 
-    ```
+    ```bash
         STARTIP="0.0.0.0"
         ENDIP="0.0.0.0"
         az sql server firewall-rule create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME \
         --name AllowAzureResources --start-ip-address $STARTIP --end-ip-address $ENDIP
     ```
 
-Now create a database within that server.
+10. Now create a database within that server.
 
     ```bash
     az sql db create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME --name PartsUnlimited \
     --service-objective S0
     ```
 
-The web app you created needs the database connection string in its configuration, so run the following commands to prepare and add it to the app settings of the web app.
+11.The web app you created needs the database connection string in its configuration, so run the following commands to prepare and add it to the app settings of the web app.
 
-    ```bash
-        CONNSTRING=$(az sql db show-connection-string --name PartsUnlimited --server $SERVERNAME \
-        --client ado.net --output tsv)
-        CONNSTRING=${CONNSTRING//<username>/$USERNAME}
-        CONNSTRING=${CONNSTRING//<password>/$SQLSERVERPASSWORD}
-        az webapp config connection-string set --name $WEBAPPNAME --resource-group $RESOURCEGROUPNAME \
-        -t SQLAzure --settings "DefaultConnectionString=$CONNSTRING" 
-    ```
+```bash
+CONNSTRING=$(az sql db show-connection-string --name PartsUnlimited --server $SERVERNAME \
+--client ado.net --output tsv)
+CONNSTRING=${CONNSTRING//<username>/$USERNAME}
+CONNSTRING=${CONNSTRING//<password>/$SQLSERVERPASSWORD}
+az webapp config connection-string set --name $WEBAPPNAME --resource-group $RESOURCEGROUPNAME \
+-t SQLAzure --settings "DefaultConnectionString=$CONNSTRING" 
+```
 
 ## Exercise 1: Monitor an Azure App Service web app by using Azure Application Insights
 
@@ -130,81 +133,51 @@ In this task, you will deploying a web app to Azure by using Azure DevOps pipeli
 
     > Note: The sample project we are using in this lab includes a continuous integration build, which we will use without modifications. There is also a continuous delivery release pipeline that will require minor changes before it is ready for deployment to the Azure resources you implemented in the previous task.
 
-Switch to the web browser window displaying the Monitoring Application Performance project in the Azure DevOps portal, in the vertical navigational pane, select the Pipelines, and, in the Pipelines section, select Releases.
-
-In the list of release pipelines, on the PartsUnlimitedE2E pane, click Edit.
-
-On the All pipelines > PartsUnlimitedE2E pane, click the rectangle representing the Dev stage, on the Dev pane, click Delete, and, in the Delete stage dialog box, click Confirm.
-
-Back on the All pipelines > PartsUnlimitedE2E pane, click the rectangle representing the QA stage, on the QA pane, click Delete, and, in the Delete stage dialog box, click Confirm.
-
-Back on the All pipelines > PartsUnlimitedE2E pane, in the rectangle representing the Production stage, click the 1 job, 1 task link.
-
-On the pane displaying the list of tasks of the Production* stage, click the entry representing the Azure App Service Deploy task.
-
-On the Azure App Service deploy pane, in the Azure subscription dropdown list, select the entry representing the Azure subscription you are using in this lab, and click Authorize to create the corresponding service connection. When prompted, sign in using the account with the Owner role in the Azure subscription and the Global Administrator role in the Azure AD tenant associated with the Azure subscription.
-
-With the Tasks tab of the All pipelines > PartsUnlimitedE2E pane active, click the Pipeline tab header to return to the diagram of the pipeline.
-
-In the diagram, click the Pre-deployment condition oval symbol on the left side of the rectangle representing the Production stage.
-
-On the Pre-deployment condition pane, in the Select trigger section, select After release.
-
+1. Switch to the web browser window displaying the Monitoring Application Performance project in the Azure DevOps portal, in the vertical navigational pane, select the Pipelines, and, in the Pipelines section, select Releases.
+2. In the list of release pipelines, on the PartsUnlimitedE2E pane, click Edit.
+3. On the All pipelines > PartsUnlimitedE2E pane, click the rectangle representing the Dev stage, on the Dev pane, click Delete, and, in the Delete stage dialog box, click Confirm.
+4. Back on the All pipelines > PartsUnlimitedE2E pane, click the rectangle representing the QA stage, on the QA pane, click Delete, and, in the Delete stage dialog box, click Confirm.
+5. Back on the All pipelines > PartsUnlimitedE2E pane, in the rectangle representing the Production stage, click the 1 job, 1 task link.
+6. On the pane displaying the list of tasks of the Production* stage, click the entry representing the Azure App Service Deploy task.
+7. On the Azure App Service deploy pane, in the Azure subscription dropdown list, select the entry representing the Azure subscription you are using in this lab, and click Authorize to create the corresponding service connection. When prompted, sign in using the account with the Owner role in the Azure subscription and the Global Administrator role in the Azure AD tenant associated with the Azure subscription.
+8. With the Tasks tab of the All pipelines > PartsUnlimitedE2E pane active, click the Pipeline tab header to return to the diagram of the pipeline.
+9. In the diagram, click the Pre-deployment condition oval symbol on the left side of the rectangle representing the Production stage.
+10. On the Pre-deployment condition pane, in the Select trigger section, select After release.
     > Note: This will invoke the release pipeline after the project's build pipeline succeeds.
-
-With the Pipeline tab of the All pipelines > PartsUnlimitedE2E pane active, click the Variables tab header.
-
-In the list of variables, set the value of the WebsiteName variable to match the name of the Azure App Service web app you created earlier in this lab.
-
-In the upper right corner of the pane, click Save, and, when prompted, in the Save dialog box, click OK again.
-
+11. With the Pipeline tab of the All pipelines > PartsUnlimitedE2E pane active, click the Variables tab header.
+12. In the list of variables, set the value of the WebsiteName variable to match the name of the Azure App Service web app you created earlier in this lab.
+13. In the upper right corner of the pane, click Save, and, when prompted, in the Save dialog box, click OK again.
     > Note: Now that the release pipeline is in place, we can expect that any commits to the master branch will trigger the build and release pipelines.
+14. In the web browser window displaying the Azure DevOps portal, in the vertical navigational pane, click Repos.
+15. On the Files pane, navigate to and select the PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite/Web.config file.
+    > Note: This application already has configuration settings for the Application Insights key and for a SQL connection.
+16. On the Web.config pane, review the lines referencing the Application Insights key and for a SQL connection:
 
-In the web browser window displaying the Azure DevOps portal, in the vertical navigational pane, click Repos.
+    ```xml
+    <add key="Keys:ApplicationInsights:InstrumentationKey" value="0839cc6f-b99b-44b1-9d74-4e408b7aee29" />
+    <connectionStrings>
+        <add name="DefaultConnectionString" connectionString="Server=(localdb)\mssqllocaldb;Database=PartsUnlimitedWebsite;Integrated Security=True;" providerName="System.Data.SqlClient" />
+    </connectionStrings>
+    ```
 
-On the Files pane, navigate to and select the PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite/Web.config file.
+    > Note: You will modify values of these settings in the Azure portal following the deployment to represent the Azure Application Insights and the Azure SQL Database you deployed earlier in the lab.
+    > Note: Now trigger the build and release processes without modifying any relevant code, by simply adding an empty line to the end of the file
 
-> Note: This application already has configuration settings for the Application Insights key and for a SQL connection.
-
-On the Web.config pane, review the lines referencing the Application Insights key and for a SQL connection:
-
-<add key="Keys:ApplicationInsights:InstrumentationKey" value="0839cc6f-b99b-44b1-9d74-4e408b7aee29" />
-<connectionStrings>
-   <add name="DefaultConnectionString" connectionString="Server=(localdb)\mssqllocaldb;Database=PartsUnlimitedWebsite;Integrated Security=True;" providerName="System.Data.SqlClient" />
-</connectionStrings>
-> Note: You will modify values of these settings in the Azure portal following the deployment to represent the Azure Application Insights and the Azure SQL Database you deployed earlier in the lab.
-
-> Note: Now trigger the build and release processes without modifying any relevant code, by simply adding an empty line to the end of the file
-
-On the Web.config pane, click Edit, add an empty line to the end of the file, click Commit and, on the Commit pane, click Commit again.
-
-> Note: A new build will begin and ultimately result in a deployment to Azure. Do not wait for its completion, but instead proceed to the next step.
-
-Switch to the web browser displaying the Azure portal and navigate to the App Service web app you provisioned earlier in the lab.
-
-On the App Service web app blade, click in the vertical menu on the left side, in the Settings section, click Configuration tab.
-
-In the list of Application settings, click the APPINSIGHTS_INSTRUMENTATIONKEY entry. (If you don't see this entry, then select Application Insights under Settings and Enable Aplication Insights, and then select Apply.)
-
-On the Add/Edit application setting blade, copy the text in the Value textbox and click Cancel.
-
-> Note: This is the default setting added during the App Service web app deployment, which already contains the Application Insights ID. We need to add a new setting expected by our app, with a different name but the matching value. This is a specific requirement for our sample.
-
-In the Application settings section, click + New application setting.
-
-On the Add/Edit application setting blade, in the Name textbox, type Keys:ApplicationInsights:InstrumentationKey, in the Value textbox, type the string of characters you copied into Clipboard and click OK. Select Save.
-
-> Note: Changes to the application settings and connection strings trigger restart of the web app.
-
-Switch back to the web browser window displaying the Azure DevOps portal, in the vertical navigational pane, select the Pipelines, and, in the Pipelines section, click the entry representing your most recently run build pipeline.
-
-If the build has not yet completed, track it through until it does, then, in the vertical navigational pane, in the Pipelines section, click Releases, on the PartsUnlimiteE2E pane, click Release-1 and follow the release pipeline to its completion.
-
-Switch to the web browser window displaying the Azure portal and, on the App Service web app blade, in the vertical menu bar on the left side, click Overview.
-
-On the right side, in the Essentials section, click the URL link. This will automatically open another web browser tab displaying the Parts Unlimited web site.
-
-Verify that the Parts Unlimited web site loads as expected.
+17. On the Web.config pane, click Edit, add an empty line to the end of the file, click Commit and, on the Commit pane, click Commit again.
+    > Note: A new build will begin and ultimately result in a deployment to Azure. Do not wait for its completion, but instead proceed to the next step.
+18. Switch to the web browser displaying the Azure portal and navigate to the App Service web app you provisioned earlier in the lab.
+19. On the App Service web app blade, click in the vertical menu on the left side, in the Settings section, click Configuration tab.
+20. In the list of Application settings, click the APPINSIGHTS_INSTRUMENTATIONKEY entry. (If you don't see this entry, then select Application Insights under Settings and Enable Aplication Insights, and then select Apply.)
+21. On the Add/Edit application setting blade, copy the text in the Value textbox and click Cancel.
+    > Note: This is the default setting added during the App Service web app deployment, which already contains the Application Insights ID. We need to add a new setting expected by our app, with a different name but the matching value. This is a specific requirement for our sample.
+22. In the Application settings section, click + New application setting.
+23. On the Add/Edit application setting blade, in the Name textbox, type Keys:ApplicationInsights:InstrumentationKey, in the Value textbox, type the string of characters you copied into Clipboard and click OK. Select Save.
+    > Note: Changes to the application settings and connection strings trigger restart of the web app.
+24. Switch back to the web browser window displaying the Azure DevOps portal, in the vertical navigational pane, select the Pipelines, and, in the Pipelines section, click the entry representing your most recently run build pipeline.
+25. If the build has not yet completed, track it through until it does, then, in the vertical navigational pane, in the Pipelines section, click Releases, on the PartsUnlimiteE2E pane, click Release-1 and follow the release pipeline to its completion.
+26. Switch to the web browser window displaying the Azure portal and, on the App Service web app blade, in the vertical menu bar on the left side, click Overview.
+27. On the right side, in the Essentials section, click the URL link. This will automatically open another web browser tab displaying the Parts Unlimited web site.
+28. Verify that the Parts Unlimited web site loads as expected.
 
 ## Task 2: Generate and review application traffic
 
