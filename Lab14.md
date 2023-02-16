@@ -218,13 +218,13 @@ In this task you will import the eShopOnWeb Git repository that will be used by 
 
 4. Add two new application settings:
 
-    First app setting
-        Name: UseAppConfig
-        Value: true
-        Second app setting
-        
-        Name: AppConfigEndpoint
-        Value: the value you saved/copied previously from App Configuration Endpoint. It should look like <https://appcs-NAME-REGION.azconfig.io>
+    * First app setting
+      * Name: UseAppConfig
+      * Value: true
+    * Second app setting
+      * Name: AppConfigEndpoint
+      * Value: the value you saved/copied previously from App Configuration Endpoint. It should look like <https://appcs-NAME-REGION.azconfig.io>
+      * 
 5. Click Ok then Save and wait for the settings to be updated.
 
 6. Go to Overview and click on Browse
