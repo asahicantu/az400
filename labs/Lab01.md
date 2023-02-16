@@ -1,4 +1,4 @@
-# Lab 01 Agile Planning and Portfolio Management with Azure Boards
+# Lab 01 - Agile Planning and Portfolio Management with Azure Boards
 
 In this lab, you'll learn about the agile planning and portfolio management tools and processes provided by Azure Boards and how they can help you quickly plan, manage, and track work across your entire team. You'll explore the product backlog, sprint backlog, and task boards that can track the flow of work during an iteration. We'll also look at the enhanced tools in this release to scale for larger teams and organizations.
 

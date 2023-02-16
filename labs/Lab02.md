@@ -1,4 +1,4 @@
-# Lab 02 Version Controlling with Git in Azure Repos
+# Lab 02 - Version Controlling with Git in Azure Repos
 
 ## Overview
 

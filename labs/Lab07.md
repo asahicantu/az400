@@ -1,6 +1,6 @@
-# Lab 07 Implementing GitHub Actions for CI/CD
+# Lab 07 - Implementing GitHub Actions for CI/CD
 
-## Lab overview
+## Overview
 
 In this lab, you'll learn how to implement a GitHub Action workflow that deploys an Azure web app.
 

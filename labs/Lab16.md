@@ -1,6 +1,6 @@
-# Lab 17  - Implement Security and Compliance in an Azure DevOps pipeline
+# Lab 16 - Implement Security and Compliance in an Azure DevOps pipeline
 
-## Lab overview
+## Overview
 
 In this lab, you will use Mend Bolt (formerly WhiteSource) to automatically detect vulnerable open source components, outdated libraries, and license compliance issues in your code. You will leverage WebGoat, an intentionally insecure web application, maintained by OWASP designed to illustrate common web application security issues.
 Mend is the leader in continuous open source software security and compliance management. WhiteSource integrates into your build process, irrespective of your programming languages, build tools, or development environments. It works automatically, continuously, and silently in the background, checking the security, licensing, and quality of your open source components against WhiteSource constantly-updated definitive database of open source repositories.

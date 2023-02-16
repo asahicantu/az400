@@ -115,12 +115,10 @@ In this exercise, you will set up the prerequisites for the lab, which consist o
 11.The web app you created needs the database connection string in its configuration, so run the following commands to prepare and add it to the app settings of the web app.
 
 ```bash
-connstr=$(az sql db show-connection-string --name PartsUnlimited --server $srv \
---client ado.net --output tsv)
+connstr=$(az sql db show-connection-string --n PartsUnlimited --server $srv --client ado.net --output tsv)
 connstr=${connstr//<username>/$uname}
 connstr=${connstr//<password>/$sqlpsw}
-az webapp config connection-string set --name $webappName --resource-group $rg \
--t SQLAzure --settings "DefaultConnectionString=$connstr" 
+az webapp config connection-string set --name $webappName --resource-group $rg -t SQLAzure --settings "DefaultConnectionString=$connstr" 
 ```
 
 ## Exercise 1: Monitor an Azure App Service web app by using Azure Application Insights

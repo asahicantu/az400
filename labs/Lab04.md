@@ -1,6 +1,6 @@
 # Lab 04 - Configuring Agent Pools and Understanding Pipeline Styles
 
-## Lab overview
+## Overview
 
 YAML-based pipelines allow you to fully implement CI/CD as code, in which pipeline definitions reside in the same repository as the code that is part of your Azure DevOps project. YAML-based pipelines support a wide range of features that are part of the classic pipelines, such as pull requests, code reviews, history, branching, and templates.
 

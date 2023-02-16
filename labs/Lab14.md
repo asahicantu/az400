@@ -1,4 +1,4 @@
-# 1. Lab 14 Enable Dynamic Configuration and Feature Flags
+# Lab 14 - Enable Dynamic Configuration and Feature Flags
 
 ## Overview
 
@@ -187,7 +187,6 @@ In this task you will import the eShopOnWeb Git repository that will be used by 
 6. Click Apply then go back to your website and refresh the page.
 7. You should see your new message instead of the old default value.
 
-___
 Congratulations! In this task, you tested the Configuration explorer in Azure App Configuration.
 
 ## Task 5: Test the Feature Flag
@@ -203,7 +202,6 @@ Congratulations! In this task, you tested the Configuration explorer in Azure Ap
 5. You should see an image with text "ALL T-SHIRTS ON SALE THIS WEEKEND".
 6. You can disable this feature in App Configuration and then you would see that the image disappears.
 
-___
 Congratulations! In this task, you tested the Feature manager in Azure App Configuration.
 
 ## Review

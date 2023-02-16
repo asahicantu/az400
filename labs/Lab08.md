@@ -1,4 +1,4 @@
-# Lab 08 Deploying Docker containers to Azure App Service web apps
+# Lab 08 - Deploying Docker containers to Azure App Service web apps
 
 ## Overview
 

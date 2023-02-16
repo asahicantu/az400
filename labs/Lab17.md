@@ -1,6 +1,6 @@
 # Lab17 - SonarCloud Managing technical debt with SonarCloud and Azure DevOps
 
-## Lab overview
+## Overview
 
 In the context of Azure DevOps, the term technical debt represents suboptimal means of reaching tactical goals, which negatively affects the ability to achieve strategic objectives in software development and deployment. Technical debt affects productivity by making code hard to understand, prone to failures, time-consuming to change, and difficult to validate. Without proper oversight and management, technical debt can accumulate over time and significantly impact the overall quality of the software and the productivity of development teams in the longer term.
 SonarCloud is a cloud-based code quality and security service. The main features of SonarCloud include:

@@ -1,6 +1,6 @@
-# Lab 05 Enabling Continuous Integration with Azure Pipelines
+# Lab 05 - Enabling Continuous Integration with Azure Pipelines
 
-## Lab overview
+## Overview
 
 This lab will teach you how to configure continuous integration (CI) and continuous deployment (CD) for your applications using Build and Release in Azure Pipelines. This scriptable CI/CD system is web-based and cross-platform while also providing a modern interface for visualizing sophisticated workflows. Although we won’t demonstrate all of the cross-platform possibilities in this lab, it's essential to point out that you can also build for iOS, Android, Java (using Ant, Maven, or Gradle), and Linux.
 
