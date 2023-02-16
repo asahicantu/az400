@@ -21,74 +21,53 @@ In this exercise, you will set up the prerequisites for the lab, which consist o
 
 ## Task 0: Associate your subscription with your project
 
-Navigate to the following URL <https://dev.azure.com> and login as [username] and the password [password]
+1. Navigate to the following URL <https://dev.azure.com> and login as [username] and the password [password]
 
-Click Start free.
+2. Click Start free.
 
-On the Get started with Azure DevOps page click Continue.
+3. On the Get started with Azure DevOps page click Continue.
 
 ## Task 1: Configure the team project
 
-In this task, you will use Azure DevOps Demo Generator to generate a new project based on the Parts Unlimited template.
+1. In this task, you will use Azure DevOps Demo Generator to generate a new project based on the Parts Unlimited template.
+2. On your lab computer, start a web browser and navigate to <https://azuredevopsdemogenerator.azurewebsites.net>. This utility site will automate the process of creating a new Azure DevOps project within your account that is prepopulated with content (work items, repos, etc.) required for the lab.
 
-On your lab computer, start a web browser and navigate to <https://azuredevopsdemogenerator.azurewebsites.net>. This utility site will automate the process of creating a new Azure DevOps project within your account that is prepopulated with content (work items, repos, etc.) required for the lab.
-
-    > Note: For more information on the site, see https://docs.microsoft.com/en-us/azure/devops/demo-gen.
-
-Click Sign in and sign in using the email as [username] and the password [password]
-
-If required, on the Azure DevOps Demo Generator page, click Accept to accept the permission requests for accessing your Azure DevOps subscription.
-
-On the Create New Project page, in the New Project Name textbox, type Monitoring Application Performance, in the Select organization dropdown list, select your Azure DevOps organization, and then click Choose template.
-
-In the list of templates, select the PartsUnlimited template and click Select Template.
-
-Back on the Create New Project page, click Create Project
-
-> Note: Wait for the process to complete. This should take about 2 minutes. In case the process fails, navigate to your DevOps organization, delete the project, and try again.
-
-On the Create New Project page, click Navigate to project.
+    > Note: For more information on the site, see <https://docs.microsoft.com/en-us/azure/devops/demo-gen>.
+3. Click Sign in and sign in using the email as [username] and the password [password]
+4. If required, on the Azure DevOps Demo Generator page, click Accept to accept the permission requests for accessing your Azure DevOps subscription.
+5. On the Create New Project page, in the New Project Name textbox, type Monitoring Application Performance, in the Select organization dropdown list, select your Azure DevOps organization, and then click Choose template.
+6. In the list of templates, select the PartsUnlimited template and click Select Template.
+7. Back on the Create New Project page, click Create Project
+    > Note: Wait for the process to complete. This should take about 2 minutes. In case the process fails, navigate to your DevOps organization, delete the project, and try again.
+8. On the Create New Project page, click Navigate to project.
 
 ## Task 2: Configure Billing
 
-In the vertical navigational pane of the Azure DevOps portal, select Azure Devops Logo and then click the Organization settings icon.
-
-In the navigational pane, select Billing.
-
-Under Billing select Set up billing.
-
-In the Set up billing pane, once your susbscription is valid in a green box select Save.
-
-Set the Paid parallel jobs for MS Hosted CI/CD and Self-Hosted CI/CD to 1.
-
-Scroll down to the bottom of the page and click Save then navigate back to your project.
+1. In the vertical navigational pane of the Azure DevOps portal, select Azure Devops Logo and then click the Organization settings icon.
+2. In the navigational pane, select Billing.
+3. Under Billing select Set up billing.
+4. In the Set up billing pane, once your susbscription is valid in a green box select Save.
+5. Set the Paid parallel jobs for MS Hosted CI/CD and Self-Hosted CI/CD to 1.
+6. Scroll down to the bottom of the page and click Save then navigate back to your project.
 
 ## Task 3: Create Azure resources
 
-In this task, you will create an Azure web app and an Azure SQL database by using the cloud shell in Azure portal.
-
-> Note: This lab involves a deployment of the Parts Unlimited site to an Azure app service. To accommodate this requirement, you will need to spin up the necessary infrastructure.
-
-From the lab computer, start a web browser, navigate to the <https://portal.azure.com>, and sign in with the user account that has the Owner role in the Azure subscription you will be using in this lab and has the role of the Global Administrator in the Azure AD tenant associated with this subscription.
-
-In the Azure portal, in the toolbar, click the Cloud Shell icon located directly to the right of the search text box.
-
-If prompted to select either Bash or PowerShell, select Bash.
-
-> Note: If this is the first time you are starting Cloud Shell and you are presented with the You have no storage mounted message, select the subscription you are using in this lab, and select Create storage.
-
-From the Bash prompt, in the Cloud Shell pane, run the following command to create a resource group (replace the [region] placeholder with the name of the Azure region closest to you such as 'eastus').
-
-```bash
-rg='az400m17l01a-RG'
-loc='norwayeast' 
-sp='az400l17-sp'
-webappName=partsunlimited$RANDOM$RANDOM #create a webapp with unique plan name
-az group create --name $rg --location $loc 
-az appservice plan create --resource-group $rg --name $sp --sku B3 
-az webapp create --resource-group $rg --plan $sp --name $webappName
-```
-
+1. In this task, you will create an Azure web app and an Azure SQL database by using the cloud shell in Azure portal.
+    > Note: This lab involves a deployment of the Parts Unlimited site to an Azure app service. To accommodate this requirement, you will need to spin up the necessary infrastructure.
+2. From the lab computer, start a web browser, navigate to the <https://portal.azure.com>, and sign in with the user account that has the Owner role in the Azure subscription you will be using in this lab and has the role of the Global Administrator in the Azure AD tenant associated with this subscription.
+3. In the Azure portal, in the toolbar, click the Cloud Shell icon located directly to the right of the search text box.
+4. If prompted to select either Bash or PowerShell, select Bash.
+    > Note: If this is the first time you are starting Cloud Shell and you are presented with the You have no storage mounted message, select the subscription you are using in this lab, and select Create storage.
+5. From the Bash prompt, in the Cloud Shell pane, run the following command to create a resource group (replace the [region] placeholder with the name of the Azure region closest to you such as 'eastus').
+    ```bash
+    rg='az400m17l01a-RG'
+    loc='norwayeast' 
+    sp='az400l17-sp'
+    webappName=partsunlimited$RANDOM$RANDOM #create a webapp with unique plan name
+    az group create --name $rg --location $loc 
+    az appservice plan create --resource-group $rg --name $sp --sku B3 
+    az webapp create --resource-group $rg --plan $sp --name $webappName
+    ```
     > Note: Record the name of the web app. You will need it later in this lab.
 
 Now is the time to create an Application Insights instance.
