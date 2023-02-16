@@ -19,18 +19,19 @@ After you complete this lab, you will be able to:
 
 In this exercise, you will set up the prerequisites for the lab, which consist of the preconfigured Parts Unlimited team project based on an Azure DevOps Demo Generator template and -Azure resources, including an Azure web app and an Azure SQL database.
 
-## Task 0: Associate your subscription with your project.
+## Task 0: Associate your subscription with your project
 
-Navigate to the following URL https://dev.azure.com and login as asahi_cantuRCO1X@gdcs0.com and the password oXg3ekBnrnTTdfeO
+Navigate to the following URL <https://dev.azure.com> and login as asahi_cantuRCO1X@gdcs0.com and the password oXg3ekBnrnTTdfeO
 
 Click Start free.
 
 On the Get started with Azure DevOps page click Continue.
 
 ## Task 1: Configure the team project
+
 In this task, you will use Azure DevOps Demo Generator to generate a new project based on the Parts Unlimited template.
 
-On your lab computer, start a web browser and navigate to https://azuredevopsdemogenerator.azurewebsites.net. This utility site will automate the process of creating a new Azure DevOps project within your account that is prepopulated with content (work items, repos, etc.) required for the lab.
+On your lab computer, start a web browser and navigate to <https://azuredevopsdemogenerator.azurewebsites.net>. This utility site will automate the process of creating a new Azure DevOps project within your account that is prepopulated with content (work items, repos, etc.) required for the lab.
 
     > Note: For more information on the site, see https://docs.microsoft.com/en-us/azure/devops/demo-gen.
 
@@ -49,6 +50,7 @@ Back on the Create New Project page, click Create Project
 On the Create New Project page, click Navigate to project.
 
 ## Task 2: Configure Billing
+
 In the vertical navigational pane of the Azure DevOps portal, select Azure Devops Logo and then click the Organization settings icon.
 
 In the navigational pane, select Billing.
@@ -62,11 +64,12 @@ Set the Paid parallel jobs for MS Hosted CI/CD and Self-Hosted CI/CD to 1.
 Scroll down to the bottom of the page and click Save then navigate back to your project.
 
 ## Task 3: Create Azure resources
+
 In this task, you will create an Azure web app and an Azure SQL database by using the cloud shell in Azure portal.
 
 > Note: This lab involves a deployment of the Parts Unlimited site to an Azure app service. To accommodate this requirement, you will need to spin up the necessary infrastructure.
 
-From the lab computer, start a web browser, navigate to the https://portal.azure.com, and sign in with the user account that has the Owner role in the Azure subscription you will be using in this lab and has the role of the Global Administrator in the Azure AD tenant associated with this subscription.
+From the lab computer, start a web browser, navigate to the <https://portal.azure.com>, and sign in with the user account that has the Owner role in the Azure subscription you will be using in this lab and has the role of the Global Administrator in the Azure AD tenant associated with this subscription.
 
 In the Azure portal, in the toolbar, click the Cloud Shell icon located directly to the right of the search text box.
 
@@ -85,7 +88,7 @@ From the Bash prompt, in the Cloud Shell pane, run the following command to crea
         az appservice plan create --resource-group $rg --name $sp --sku B3 
         az webapp create --resource-group $rg --plan $sp --name $webappName
     ```
-    
+
     > Note: Record the name of the web app. You will need it later in this lab.
 
 Now is the time to create an Application Insights instance.
@@ -102,6 +105,7 @@ Let us connect the Application Insights to our web application.
         --resource-group $RESOURCEGROUPNAME --web-app $WEBAPPNAME
     ```
 Next, create an Azure SQL Server.
+
 ```bash
 USERNAME="Student"
 SQLSERVERPASSWORD="Pa55w.rd1234"
@@ -136,10 +140,13 @@ The web app you created needs the database connection string in its configuratio
         az webapp config connection-string set --name $WEBAPPNAME --resource-group $RESOURCEGROUPNAME \
         -t SQLAzure --settings "DefaultConnectionString=$CONNSTRING" 
     ```
+
 ## Exercise 1: Monitor an Azure App Service web app by using Azure Application Insights
+
 In this exercise, you will deploy a web app to Azure App Service by using Azure DevOps pipelines, generate traffic targeting the web app, and use Application Insights to review the web traffic, investigate application performance, track application usage, and configure alerting.
 
 ### Task 1: Deploy a web app to Azure App Service by using Azure DevOps
+
 In this task, you will deploying a web app to Azure by using Azure DevOps pipelines.
 
     > Note: The sample project we are using in this lab includes a continuous integration build, which we will use without modifications. There is also a continuous delivery release pipeline that will require minor changes before it is ready for deployment to the Azure resources you implemented in the previous task.
@@ -221,6 +228,7 @@ On the right side, in the Essentials section, click the URL link. This will auto
 Verify that the Parts Unlimited web site loads as expected.
 
 ## Task 2: Generate and review application traffic
+
 In this task, you will generate traffic targeting the App Service web app you deployed in the previous task and review the data collected by Application Insights resource associated with the web app.
 
 In the web browser window displaying the Parts Unlimited web site, navigate through its pages to generate some traffic.
@@ -244,6 +252,7 @@ Review the resulting Application Insights blade displaying charts presenting dif
 > Note: If you didn't see anything right away, just wait for a few minutes and refresh the page until the logs start to show up in the overview section.
 
 ## Task 3: Investigate application performance
+
 In this task, you will use Application Insights to investigate performance of the App Service web app.
 
 On the Application Insights blade, in the vertical menu on the left side, in the Investigate section, click Application map.
@@ -321,6 +330,7 @@ At the top of the newly displayed chart, click Apply splitting and, in the resul
 > Note: This will split the server requests based on pages they reference, represented by different colors in the chart.
 
 ## Task 4: Track application usage
+>
 > Note: Application Insights provides a broad set of features to track application usage.
 
 On the Metrics blade, in the vertical menu on the left side, in the Usage section, click Users.
@@ -378,6 +388,7 @@ On the More | Gallery blade, in the Usage section, click Analysis of Page Views 
 > Note: This particular report offers insight regarding the page views. There are many other reports available by default, and you can customize and save new ones.
 
 ## Task 5: Configure web app alerts
+
 While on the More | Gallery blade, in the vertical menu on the left side, in the Monitoring section, click Alerts.
 
 > Note: Alerts enable you to set triggers that perform actions when Application Insights measurements reach specified conditions.
@@ -402,11 +413,11 @@ Back on the Create alert rule blade, in the Action section, click Select action 
 
 On the Basics tab of the Create action group blade, specify the following settings and click Next: Notifications >:
 
-Setting	Value
-Subscription	the name of the Azure subscription you are using in this lab
-Resource group	the name of a new resource group az400m17l01b-RG
-Action group name	az400m17-action-group
-Display name	az400m17-ag
+Setting Value
+Subscription the name of the Azure subscription you are using in this lab
+Resource group the name of a new resource group az400m17l01b-RG
+Action group name az400m17-action-group
+Display name az400m17-ag
 On the Notifications tab of the Create action group blade, in the Notification type dropdown list, select Email/SMS message/Push/Voice. This will open the Email/SMS message/Push/Voice blade.
 
 On the Email/SMS message/Push/Voice blade, select the Email checkbox, in the Email textbox, type your email address, and click OK.
