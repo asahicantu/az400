@@ -21,7 +21,7 @@ In this exercise, you will set up the prerequisites for the lab, which consist o
 
 ## Task 0: Associate your subscription with your project
 
-Navigate to the following URL <https://dev.azure.com> and login as asahi_cantuRCO1X@gdcs0.com and the password oXg3ekBnrnTTdfeO
+Navigate to the following URL <https://dev.azure.com> and login as [username] and the password [password]
 
 Click Start free.
 
@@ -35,7 +35,7 @@ On your lab computer, start a web browser and navigate to <https://azuredevopsde
 
     > Note: For more information on the site, see https://docs.microsoft.com/en-us/azure/devops/demo-gen.
 
-Click Sign in and sign in using the email asahi_cantuRCO1X@gdcs0.com and password oXg3ekBnrnTTdfeO.
+Click Sign in and sign in using the email as [username] and the password [password]
 
 If required, on the Azure DevOps Demo Generator page, click Accept to accept the permission requests for accessing your Azure DevOps subscription.
 
@@ -77,20 +77,19 @@ If prompted to select either Bash or PowerShell, select Bash.
 
 > Note: If this is the first time you are starting Cloud Shell and you are presented with the You have no storage mounted message, select the subscription you are using in this lab, and select Create storage.
 
-From the Bash prompt, in the Cloud Shell pane, run the following command to create a resource group (replace the <region> placeholder with the name of the Azure region closest to you such as 'eastus').
+From the Bash prompt, in the Cloud Shell pane, run the following command to create a resource group (replace the [region] placeholder with the name of the Azure region closest to you such as 'eastus').
 
-    ```
-    rg='az400m17l01a-RG'
-    loc='norwayeast' 
-    sp='az400l17-sp'
-    webappName=partsunlimited$RANDOM$RANDOM #create a webapp with unique plan name
-    az group create --name $rg --location $loc 
-    az appservice plan create --resource-group $rg --name $sp --sku B3 
-    az webapp create --resource-group $rg --plan $sp --name $webappName
-    
-    ```
+```bash
+rg='az400m17l01a-RG'
+loc='norwayeast' 
+sp='az400l17-sp'
+webappName=partsunlimited$RANDOM$RANDOM #create a webapp with unique plan name
+az group create --name $rg --location $loc 
+az appservice plan create --resource-group $rg --name $sp --sku B3 
+az webapp create --resource-group $rg --plan $sp --name $webappName
+```
 
-> Note: Record the name of the web app. You will need it later in this lab.
+    > Note: Record the name of the web app. You will need it later in this lab.
 
 Now is the time to create an Application Insights instance.
 
