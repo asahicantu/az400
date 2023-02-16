@@ -83,17 +83,17 @@ In this exercise, you will set up the prerequisites for the lab, which consist o
 7. Let us connect the Application Insights to our web application.
 
     ```bash
-    az monitor app-insights component connect-webapp --app $WEBAPPNAME --resource-group $RESOURCEGROUPNAME --web-app $WEBAPPNAME
+    az monitor app-insights component connect-webapp --app $WEBAPPNAME --resource-group $rg --web-app $WEBAPPNAME
     ```
 
 8. Next, create an Azure SQL Server.
 
     ```bash
-    USERNAME="Student"
-    SQLSERVERPASSWORD="Pa55w.rd1234"
-    SERVERNAME="partsunlimitedserver$RANDOM"
-    az sql server create --name $SERVERNAME --resource-group $RESOURCEGROUPNAME \
-    --location $LOCATION --admin-user $USERNAME --admin-password $SQLSERVERPASSWORD
+    uname="Student"
+    sqlpsw="Pa55w.rd1234"
+    srv="partsunlimitedserver$RANDOM"
+    az sql server create --name $srv --resource-group $rg \
+    --location loc --admin-user $uname --admin-password $sqlpsw
     ```
 
 9. The web app needs to be able to access the SQL server, so we need to allow access to Azure resources in the SQL Server firewall rules.
@@ -101,25 +101,25 @@ In this exercise, you will set up the prerequisites for the lab, which consist o
     ```bash
         STARTIP="0.0.0.0"
         ENDIP="0.0.0.0"
-        az sql server firewall-rule create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME \
+        az sql server firewall-rule create --server $srv --resource-group $rg \
         --name AllowAzureResources --start-ip-address $STARTIP --end-ip-address $ENDIP
     ```
 
 10. Now create a database within that server.
 
     ```bash
-    az sql db create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME --name PartsUnlimited \
+    az sql db create --server $srv --resource-group $rg --name PartsUnlimited \
     --service-objective S0
     ```
 
 11.The web app you created needs the database connection string in its configuration, so run the following commands to prepare and add it to the app settings of the web app.
 
 ```bash
-CONNSTRING=$(az sql db show-connection-string --name PartsUnlimited --server $SERVERNAME \
+CONNSTRING=$(az sql db show-connection-string --name PartsUnlimited --server $srv \
 --client ado.net --output tsv)
-CONNSTRING=${CONNSTRING//<username>/$USERNAME}
-CONNSTRING=${CONNSTRING//<password>/$SQLSERVERPASSWORD}
-az webapp config connection-string set --name $WEBAPPNAME --resource-group $RESOURCEGROUPNAME \
+CONNSTRING=${CONNSTRING//<username>/$uname}
+CONNSTRING=${CONNSTRING//<password>/$sqlpsw}
+az webapp config connection-string set --name $WEBAPPNAME --resource-group $rg \
 -t SQLAzure --settings "DefaultConnectionString=$CONNSTRING" 
 ```
 
