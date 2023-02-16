@@ -207,3 +207,5 @@ Congratulations! In this task, you tested the Feature manager in Azure App Confi
 ## Review
 
 In this lab, you learned how to dynamically enable configuration and manage feature flags.
+
+[Back to Main](../README.md)

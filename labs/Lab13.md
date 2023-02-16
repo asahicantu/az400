@@ -189,3 +189,5 @@ In this lab, you integrated Azure Key Vault with an Azure DevOps pipeline by usi
 Created an Azure service principal to provide access to secrets in the Azure Key vault and authenticate deployment to Azure from Azure DevOps.
 Run 2 YAML pipelines imported from a Git repository.
 Configured pipeline to retrieve the password from the Azure Key vault using ADO Variable Group and use it on subsequent tasks.
+
+[Back to Main](../README.md)

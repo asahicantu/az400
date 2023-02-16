@@ -240,3 +240,5 @@ In this exercise, you will test the release gates by updating the application, w
 ## Review
 
 In this lab, you configured release pipelines and then configured and tested release gates.
+
+[Back to Main](../README.md)

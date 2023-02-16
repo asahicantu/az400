@@ -144,3 +144,5 @@ In this exercise, you will query release information via REST API by using Postm
 ## Review
 
 In this lab, you learned how to create and configure release dashboard and how to use REST API to retrieve Azure DevOps release data.
+
+[Back to Main](../README.md)

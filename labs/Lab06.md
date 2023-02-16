@@ -132,3 +132,5 @@ In this exercise, you will integrate a GitHub project with Azure DevOps by using
 ## Review
 
 In this lab, you integrated a GitHub project with Azure DevOps by using the new Azure Pipelines integration from the Marketplace.
+
+[Back to Main](../README.md)

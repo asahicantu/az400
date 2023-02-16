@@ -175,3 +175,5 @@ In this task, you will add a new role assignment to allow Azure App Service pull
 ## Review
 
 > In this lab, you learned how to use an Azure DevOps CI/CD pipeline to build a custom Docker image, push it to Azure Container Registry, and deploy it as a container to Azure App Service.
+
+[Back to Main](../README.md)

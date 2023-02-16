@@ -301,3 +301,5 @@ In this task, you will use Application Insights to investigate performance of th
 ## Review
 
 In this exercise, you deployed a web app to Azure App Service by using Azure DevOps pipelines, generated traffic targeting the web app, and used Application Insights to review the web traffic, investigate application performance, track application usage, and configure alerting.
+
+[Back to Main](../README.md)

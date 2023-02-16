@@ -143,3 +143,5 @@ In this exercise, you will implement Selenium tests by using a self-hosted Azure
 ## Review
 
 In this lab, you learned how to execute Selenium test cases on a C# web application, as part of the Azure DevOps Release pipeline.
+
+[Back to Main](../README.md)

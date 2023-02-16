@@ -105,3 +105,5 @@ In this exercise, you will create an Azure Service Principal to authorize GitHub
 ## Review
 
 In this lab, you implemented a GitHub Action workflow that deploys an Azure Web App.
+
+[Back to Main](../README.md)

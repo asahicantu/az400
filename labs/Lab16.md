@@ -93,3 +93,5 @@ In this task, you will create and trigger a CI build pipeline within Azure DevOp
 ## Review
 
 In this lab, you will use Mend Bolt with Azure DevOps to automatically detect vulnerable open source components, outdated libraries, and license compliance issues in your code.
+
+[Back to Main](../README.md)

@@ -262,3 +262,5 @@ In this task, you will use the Azure DevOps portal to test the policy and create
 ## Review
 
 In this lab, you used the Azure DevOps portal to manage branches and repositories.
+
+[Back to Main](../README.md)
