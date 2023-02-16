@@ -83,7 +83,7 @@ In this exercise, you will set up the prerequisites for the lab, which consist o
 7. Let us connect the Application Insights to our web application.
 
     ```bash
-    az monitor app-insights component connect-webapp --app $WEBAPPNAME --resource-group $rg --web-app $WEBAPPNAME
+    az monitor app-insights component connect-webapp --app $webappName --resource-group $rg --web-app $webappName
     ```
 
 8. Next, create an Azure SQL Server.
@@ -115,12 +115,12 @@ In this exercise, you will set up the prerequisites for the lab, which consist o
 11.The web app you created needs the database connection string in its configuration, so run the following commands to prepare and add it to the app settings of the web app.
 
 ```bash
-CONNSTRING=$(az sql db show-connection-string --name PartsUnlimited --server $srv \
+connstr=$(az sql db show-connection-string --name PartsUnlimited --server $srv \
 --client ado.net --output tsv)
-CONNSTRING=${CONNSTRING//<username>/$uname}
-CONNSTRING=${CONNSTRING//<password>/$sqlpsw}
-az webapp config connection-string set --name $WEBAPPNAME --resource-group $rg \
--t SQLAzure --settings "DefaultConnectionString=$CONNSTRING" 
+connstr=${connstr//<username>/$uname}
+connstr=${connstr//<password>/$sqlpsw}
+az webapp config connection-string set --name $webappName --resource-group $rg \
+-t SQLAzure --settings "DefaultConnectionString=$connstr" 
 ```
 
 ## Exercise 1: Monitor an Azure App Service web app by using Azure Application Insights
